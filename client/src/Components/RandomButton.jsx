@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const RandomButton = () => {
+const RandomButton = ({ text }) => {
   const navigate = useNavigate();
 
   function handleClick(){
@@ -21,7 +21,7 @@ const RandomButton = () => {
     cursor-pointer"
     onClick={handleClick}
     >
-      Random Question
+      {text}
     </button>
   );
 };
