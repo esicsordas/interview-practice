@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import {
   IoIosArrowBack,
   IoIosArrowForward,
@@ -10,17 +10,9 @@ import QuestionCard from "../Components/QuestionCard";
 import RandomButton from "../Components/RandomButton";
 
 const CardBox = () => {
-  const { pickRandomQuestion, currentQuestion } = useContext(AppContext);
-
-  useEffect(() => {
-    async function getQuestion() {
-      await pickRandomQuestion();
-    }
-    getQuestion();
-  }, []);
+  const { currentQuestion } = useContext(AppContext);
 
   const handleNextClick = async () => {
-    await pickRandomQuestion();
   };
 
   const handlePreviousClick = () => {};

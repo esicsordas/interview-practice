@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AppContext from '../AppContext';
 
 const RandomButton = ({ text }) => {
   const navigate = useNavigate();
+  const { pickRandomQuestion } = useContext(AppContext);
 
   function handleClick(){
     navigate('/random');
+    pickRandomQuestion();
   }
 
   return (
