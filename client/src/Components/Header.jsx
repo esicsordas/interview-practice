@@ -6,7 +6,6 @@ import RandomButton from "./RandomButton";
 const Header = () => {
   const location = useLocation();
   const shouldHideButton = location.pathname == "/random";
-  console.log(location.pathname);
   return (
     <header className="fixed top-0 left-0">
       <nav className="bg-cyan-400 w-screen px-4 lg:px-6 py-2.5">
