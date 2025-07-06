@@ -8,10 +8,13 @@ export function ApiProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [currentQuestion, setCurrentQuestion] = useState();
     const [remainingQuestions, setRemainingQuestions] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const serverUrl = import.meta.env.VITE_SERVER_URL;
 
     const pickRandomQuestion = async () => {
+        if (isLoading) return;
         try {
+            setIsLoading(true);
             const ids = questionHistory.map(question => question._id);
             const res = await axios.post(serverUrl +"/randomquestion", {
                 ids: ids
@@ -25,6 +28,8 @@ export function ApiProvider({ children }) {
             });
         } catch(e){
             console.error(e)
+        } finally {
+            setIsLoading(false);
         };
     };
 
@@ -50,6 +55,7 @@ export function ApiProvider({ children }) {
             currentIndex,
             currentQuestion,
             remainingQuestions,
+            isLoading,
             pickRandomQuestion,
             getPreviousQuestion,
             getNextQuestion}}>
