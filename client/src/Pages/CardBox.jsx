@@ -10,7 +10,7 @@ import QuestionCard from "../Components/QuestionCard";
 import RandomButton from "../Components/RandomButton";
 
 const CardBox = () => {
-  const { currentQuestion, getPreviousQuestion, getNextQuestion, questionHistory, currentIndex } = useContext(AppContext);
+  const { currentQuestion, getPreviousQuestion, getNextQuestion, questionHistory, currentIndex, remainingQuestions } = useContext(AppContext);
 
   useEffect(() => {
 
@@ -46,7 +46,7 @@ const CardBox = () => {
           />
         </div>
       </div>
-      <div className="mt-6">
+      <div className={setClassName(remainingQuestions == 1, "mt-6")}>
         <RandomButton text={"Next Random Question!"} />
       </div>
 

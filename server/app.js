@@ -27,12 +27,18 @@ app.get('/questions', async (req, res) => {
 
 app.post('/randomquestion', async (req, res) => {
     try {
-        const ids = req.body.ids || [];
+        const excludedIds = req.body.ids.map(id => new mongoose.Types.ObjectId(id)) || [];
+        const remainingCount = await Question.countDocuments({
+            _id: { $nin: excludedIds}
+        })
         const [randomquestion = {}] = (await Question.aggregate([
-            {$match: {_id: {$nin: ids.map(id => new mongoose.Types.ObjectId(id))}}},
+            {$match: {_id: {$nin: excludedIds}}},
             {$sample: {size: 1}}
         ]));
-        res.json(randomquestion);
+        res.json({
+            question: randomquestion,
+            remaining: remainingCount,
+    });
     } catch(e) {
         console.error(e);
         res.status(500).send('Server error');

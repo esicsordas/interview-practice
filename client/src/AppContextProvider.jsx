@@ -7,6 +7,7 @@ export function ApiProvider({ children }) {
     const [questionHistory, setQuestionHistory] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [currentQuestion, setCurrentQuestion] = useState();
+    const [remainingQuestions, setRemainingQuestions] = useState();
     const serverUrl = import.meta.env.VITE_SERVER_URL;
 
     const pickRandomQuestion = async () => {
@@ -15,9 +16,10 @@ export function ApiProvider({ children }) {
             const res = await axios.post(serverUrl +"/randomquestion", {
                 ids: ids
             });
-            setCurrentQuestion(res.data);
+            setCurrentQuestion(res.data.question);
+            setRemainingQuestions(res.data.remaining);
             setQuestionHistory(prev => {
-                const newHistory = [...prev, res.data];
+                const newHistory = [...prev, res.data.question];
                 setCurrentIndex(newHistory.length - 1);
                 return newHistory;
             });
@@ -43,7 +45,14 @@ export function ApiProvider({ children }) {
     }
 
     return (
-        <AppContext.Provider value={{questionHistory, currentIndex, currentQuestion, pickRandomQuestion, getPreviousQuestion, getNextQuestion}}>
+        <AppContext.Provider value={{
+            questionHistory,
+            currentIndex,
+            currentQuestion,
+            remainingQuestions,
+            pickRandomQuestion,
+            getPreviousQuestion,
+            getNextQuestion}}>
             {children}
         </AppContext.Provider>
     )
