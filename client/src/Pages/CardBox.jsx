@@ -16,6 +16,10 @@ const CardBox = () => {
 
   }, [currentQuestion]);
 
+  const setClassName = (condition, attributes) => {
+  return condition ? `${attributes} invisible` : attributes;
+};
+
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-4 mt-20">
       <div className="md:hidden mb-25">
@@ -26,20 +30,20 @@ const CardBox = () => {
       </div>
 
       <div className="flex flex-row items-center justify-center gap-4">
-        <div className="hidden md:flex mr-4">
-          { currentIndex > 0 && <IoIosArrowBack
+        <div className={setClassName(currentIndex == 0, "hidden md:flex mr-4")}>
+          <IoIosArrowBack
             className="text-4xl cursor-pointer hover:text-cyan-500"
             onClick={() => getPreviousQuestion()}
-          />}
+          />
         </div>
 
         {currentQuestion && <QuestionCard />}
 
-        <div className="hidden md:flex ml-4">
-          {currentIndex < questionHistory.length - 1 && <IoIosArrowForward
+        <div className={setClassName(currentIndex == questionHistory.length - 1, "hidden md:flex ml-4")}>
+          <IoIosArrowForward
             className="text-4xl cursor-pointer hover:text-cyan-500"
             onClick={() => getNextQuestion()}
-          />}
+          />
         </div>
       </div>
       <div className="mt-6">
