@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AppContext from './AppContext';
+import { storage } from './storage';
 
 
 export function ApiProvider({ children }) {
@@ -9,7 +10,17 @@ export function ApiProvider({ children }) {
     const [currentQuestion, setCurrentQuestion] = useState();
     const [remainingQuestions, setRemainingQuestions] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [favQuestions, setFavQuestions] = useState(() =>{
+        storage.initFaveQuestions();
+        return storage.getAll();
+    });
     const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+    useEffect(() => {
+        if( favQuestions !== undefined) {
+            storage.saveAll(favQuestions)
+        }
+    }, [favQuestions]);
 
     const pickRandomQuestion = async () => {
         if (isLoading) return;
@@ -49,6 +60,14 @@ export function ApiProvider({ children }) {
         }
     }
 
+    const addToFaves = (question) => {
+        setFavQuestions((prev) => [...prev, question])
+    };
+
+    const removeFromFaves = (question) => {
+        setFavQuestions((prev) => prev.filter(q => q._id !== question._id));
+    }
+
     return (
         <AppContext.Provider value={{
             questionHistory,
@@ -56,9 +75,12 @@ export function ApiProvider({ children }) {
             currentQuestion,
             remainingQuestions,
             isLoading,
+            favQuestions,
             pickRandomQuestion,
             getPreviousQuestion,
-            getNextQuestion}}>
+            getNextQuestion,
+            addToFaves,
+            removeFromFaves}}>
             {children}
         </AppContext.Provider>
     )

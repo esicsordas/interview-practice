@@ -5,14 +5,14 @@ import AppContext from "../AppContext";
 import { storage } from "../storage";
 
 const QuestionCard = () => {
-  const { currentQuestion } = useContext(AppContext);
+  const { currentQuestion, addToFaves, removeFromFaves } = useContext(AppContext);
   const [content, setContent] = useState();
   const [isFlipped, setIsFlipped] = useState();
   const [isFavorite, setIsFavorite] = useState();
 
   useEffect(() => {
     setContent(currentQuestion.question);
-    setIsFavorite(storage.getQuestion(currentQuestion._id));
+    setIsFavorite(storage.isQuestionInFaves(currentQuestion));
   }, [currentQuestion]);
 
   const handleFlipClick = () => {
@@ -30,9 +30,9 @@ const QuestionCard = () => {
   const handleHeartClick = () => {
     setIsFavorite(!isFavorite)
     if(!isFavorite) {
-      storage.setQuestion(currentQuestion._id);
+      addToFaves(currentQuestion);
     } else {
-      storage.remove(currentQuestion._id);
+      removeFromFaves(currentQuestion);
     }
   };
 

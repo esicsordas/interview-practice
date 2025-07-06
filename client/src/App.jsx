@@ -1,20 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import { storage } from "./storage";
 import Header from "./Components/Header";
 import Home from "./Pages/Home";
 import CardBox from "./Pages/CardBox";
+import CardList from "./Pages/CardList";
+import { useContext } from "react";
+import AppContext from "./AppContext";
 
 function App() {
 
-  useEffect(() => {
-    const initializeLocalStorage = () => {
-      if (!storage.getAll()) {
-        storage.createFaveQuestions();
-      }
-    };
-    initializeLocalStorage();
-  }, []);
+  const { favQuestions } = useContext(AppContext);
 
   return (
     <div className="relative h-full">
@@ -22,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/random" element={<CardBox />} />
+        <Route path="/favourites" element={<CardList questions={favQuestions} />} />
       </Routes>
     </div>
   );
