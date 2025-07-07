@@ -19,7 +19,7 @@ app.get('/questions', async (req, res) => {
     try {
         const questions = await Question.find();
         res.json(questions);
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         res.status(500).send('Server error');
     }
@@ -29,21 +29,48 @@ app.post('/randomquestion', async (req, res) => {
     try {
         const excludedIds = req.body.ids.map(id => new mongoose.Types.ObjectId(id)) || [];
         const remainingCount = await Question.countDocuments({
-            _id: { $nin: excludedIds}
+            _id: { $nin: excludedIds }
         })
         const [randomquestion = {}] = (await Question.aggregate([
-            {$match: {_id: {$nin: excludedIds}}},
-            {$sample: {size: 1}}
+            { $match: { _id: { $nin: excludedIds } } },
+            { $sample: { size: 1 } }
         ]));
         res.json({
             question: randomquestion,
             remaining: remainingCount,
-    });
-    } catch(e) {
+        });
+    } catch (e) {
         console.error(e);
         res.status(500).send('Server error');
     }
 })
+
+app.get('/questions', async (req, res) => {
+    try {
+        const { category } = req.query;
+        const filter = category ? { category } : {};
+        const questions = await Question.find(filter);
+
+        res.json(questions)
+    } catch (e) {
+        console.error(e);
+        res.status(500).send('Server error');
+    }
+});
+
+app.get('/categories', async (req, res) => {
+    try {
+        const { search } = req.query;
+        let categories = await Question.distinct("category");
+        if (search){
+            categories = categories.filter(cat => cat.toLowerCase().includes(search.toLowerCase()));
+        }
+        res.json(categories);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send('Server error');
+    }
+});
 
 const main = async () => {
     await mongoose.connect(MONGO_URL + '/interview-preparer')
@@ -53,6 +80,6 @@ const main = async () => {
 };
 
 main().catch((err) => {
-  console.error(err);
-  process.exit(1);
+    console.error(err);
+    process.exit(1);
 });
