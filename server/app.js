@@ -28,13 +28,14 @@ app.get('/questions', async (req, res) => {
 app.post('/randomquestion', async (req, res) => {
     try {
         const excludedIds = req.body.ids.map(id => new mongoose.Types.ObjectId(id)) || [];
-        const remainingCount = await Question.countDocuments({
-            _id: { $nin: excludedIds }
-        })
         const [randomquestion = {}] = (await Question.aggregate([
             { $match: { _id: { $nin: excludedIds } } },
             { $sample: { size: 1 } }
         ]));
+        excludedIds.push(randomquestion._id)
+        const remainingCount = await Question.countDocuments({
+            _id: { $nin: excludedIds }
+        })
         res.json({
             question: randomquestion,
             remaining: remainingCount,
