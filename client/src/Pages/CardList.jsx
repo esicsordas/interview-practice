@@ -1,4 +1,4 @@
-import MiniQuestionCard from "../Components/MiniQuestionCard";
+import QuestionCard from "../Components/QuestionCard";
 
 const CardList = ({questions}) => {
 
@@ -10,7 +10,7 @@ const CardList = ({questions}) => {
       {questions &&
         questions.map((q) => (
           <div key={q._id?.toString()} >
-            <MiniQuestionCard  question={q} />
+            <QuestionCard  question={q} size={"small"} />
           </div>
         ))}
     </div>

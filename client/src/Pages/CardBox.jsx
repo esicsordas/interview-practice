@@ -54,7 +54,7 @@ const CardBox = () => {
               />
             </div>
 
-            {currentQuestion && <QuestionCard />}
+            {currentQuestion && <QuestionCard question={currentQuestion} size={'large'} />}
 
             <div
               className={setClassName(
