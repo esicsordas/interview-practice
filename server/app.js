@@ -45,7 +45,7 @@ app.post('/randomquestion', async (req, res) => {
     }
 })
 
-app.get('/questions', async (req, res) => {
+app.get('/category', async (req, res) => {
     try {
         const { category } = req.query;
         const filter = category ? { category } : {};

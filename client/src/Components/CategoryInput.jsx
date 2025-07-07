@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AppContext from "../AppContext";
 
 const CategoryInput = () => {
   const [search, setSearch] = useState('');
   const [categorySuggestions, setCategorySuggestions] = useState([]);
   const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const { setCurrentCategoryQuestions} = useContext(AppContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (search.length < 3) {
@@ -13,19 +17,19 @@ const CategoryInput = () => {
     }
 
     const fetchCategorySuggestions = async () => {
-      const data = await axios.get(
+      const { data } = await axios.get(
         serverUrl + `/categories?search=${encodeURIComponent(search)}`
       );
-      console.log("data ", data);
-      setCategorySuggestions(data.data);
+      setCategorySuggestions(data);
     };
 
     fetchCategorySuggestions();
   }, [search]);
 
-  const handleCategorySelect = (category) => {
-    
-
+  const handleCategorySelect = async (category) => {
+    const { data } = await axios.get(serverUrl + `/category?category=${category}`);
+    setCurrentCategoryQuestions(data);
+    navigate('/category')
   };
 
   return (
@@ -46,7 +50,7 @@ const CategoryInput = () => {
           <li
             key={cat}
             className="p-2 hover:bg-gray-100 cursor-pointer"
-            onClick={() => handleCategorySelect(cat)}
+            onMouseDown={() => handleCategorySelect(cat)}
           >
             {cat}
           </li>

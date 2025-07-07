@@ -8,7 +8,7 @@ import AppContext from "./AppContext";
 
 function App() {
 
-  const { favQuestions } = useContext(AppContext);
+  const { favQuestions, currentCategoryQuestions } = useContext(AppContext);
 
   return (
     <div className="relative h-full">
@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/random" element={<CardBox />} />
         <Route path="/favourites" element={<CardList questions={favQuestions} />} />
+        <Route path="/category" element={<CardList questions={currentCategoryQuestions} />} />
       </Routes>
     </div>
   );

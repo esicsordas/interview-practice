@@ -10,6 +10,7 @@ export function ApiProvider({ children }) {
     const [currentQuestion, setCurrentQuestion] = useState();
     const [remainingQuestions, setRemainingQuestions] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [currentCategoryQuestions, setCurrentCategoryQuestions] = useState();
     const [favQuestions, setFavQuestions] = useState(() =>{
         storage.initFaveQuestions();
         return storage.getAll();
@@ -76,11 +77,13 @@ export function ApiProvider({ children }) {
             remainingQuestions,
             isLoading,
             favQuestions,
+            currentCategoryQuestions,
             pickRandomQuestion,
             getPreviousQuestion,
             getNextQuestion,
             addToFaves,
-            removeFromFaves}}>
+            removeFromFaves,
+            setCurrentCategoryQuestions}}>
             {children}
         </AppContext.Provider>
     )
