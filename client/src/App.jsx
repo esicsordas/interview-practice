@@ -16,8 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/random" element={<CardBox />} />
-        <Route path="/favourites" element={<CardList questions={favQuestions} />} />
-        <Route path="/category" element={<CardList questions={currentCategoryQuestions} />} />
+        <Route path="/favourites" element={<CardList questions={favQuestions} routeName={"favourites"} />} />
+        <Route path="/category" element={<CardList questions={currentCategoryQuestions} routeName={"category"}/>} />
       </Routes>
     </div>
   );
