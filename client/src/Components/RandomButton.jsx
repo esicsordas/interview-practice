@@ -4,7 +4,7 @@ import AppContext from '../AppContext';
 
 const RandomButton = ({ text }) => {
   const navigate = useNavigate();
-  const { pickRandomQuestion } = useContext(AppContext);
+  const { pickRandomQuestion, isLoading } = useContext(AppContext);
 
   function handleClick(){
     navigate('/random');
@@ -13,7 +13,8 @@ const RandomButton = ({ text }) => {
 
   return (
     <button
-      className="
+    disabled={isLoading}
+    className="
     bg-white
     text-gray-700 text-sm font-semibold
     border border-gray-300
@@ -22,7 +23,8 @@ const RandomButton = ({ text }) => {
     transition duration-150 ease-in-out
     hover:bg-cyan-500 hover:text-white
     focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400
-    cursor-pointer"
+    cursor-pointer
+    disabled:cursor-wait disabled:bg-gray-400 disabled:text-black"
     onClick={handleClick}
     >
       {text}

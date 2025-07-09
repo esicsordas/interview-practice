@@ -5,7 +5,7 @@ import AppContext from "../AppContext";
 import { storage } from "../storage";
 
 const QuestionCard = ({question, size}) => {
-  const { addToFaves, removeFromFaves } = useContext(AppContext);
+  const { addToFaves, removeFromFaves, isLoading } = useContext(AppContext);
   const [content, setContent] = useState();
   const [isFlipped, setIsFlipped] = useState();
   const [isFavorite, setIsFavorite] = useState();
@@ -53,11 +53,17 @@ const QuestionCard = ({question, size}) => {
         text-gray-700 font-semibold
         text-center ${cardSize[size]}`}
         >
+        {isLoading ? (
+        <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+        ) : (
+          <>
           {question && Object.keys(question).length > 0 ? (
             <h2>{content}</h2>
           ) : (
             <h2>No question available</h2>
           )}
+          </>
+        )}
         </div>
         {!isFavorite && <FaRegHeart className="
         absolute top-4 right-4 

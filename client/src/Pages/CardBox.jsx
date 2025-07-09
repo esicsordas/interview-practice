@@ -29,9 +29,6 @@ const CardBox = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-4 mt-20">
-      {isLoading ? (
-        <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
-      ) : (
         <>
           <div className="flex flex-row items-center justify-center gap-4">
             <IoIosArrowBack
@@ -65,7 +62,6 @@ const CardBox = () => {
             />
           </div>
         </>
-      )}
     </div>
   );
 };
