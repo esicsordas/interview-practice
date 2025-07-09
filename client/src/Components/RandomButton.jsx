@@ -16,6 +16,8 @@ const RandomButton = ({ text }) => {
     disabled={isLoading}
     className="
     bg-white
+    w-38
+    sm:mr-4
     text-gray-700 text-sm font-semibold
     border border-gray-300
     px-4 py-2

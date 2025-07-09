@@ -2,8 +2,6 @@ import { useContext, useEffect } from "react";
 import {
   IoIosArrowBack,
   IoIosArrowForward,
-  IoIosArrowDown,
-  IoIosArrowUp,
 } from "react-icons/io";
 import AppContext from "../AppContext";
 import QuestionCard from "../Components/QuestionCard";
@@ -46,7 +44,7 @@ const CardBox = () => {
             />
           </div>
 
-          <div className="flex flex-row items-center justify-center gap-4 mt-15">
+          <div className="flex flex-row items-center justify-center gap-4 mt-10">
             <IoIosArrowBack
               className={`${currentIndex === 0 ? "invisible" : ""} md:hidden sm:flex mr-4 text-4xl cursor-pointer hover:text-cyan-500`}
               onClick={() => getPreviousQuestion()}
@@ -54,7 +52,7 @@ const CardBox = () => {
             <div
               className={`${remainingQuestions === 0 ? "invisible" : ""}`}
             >
-              <RandomButton text={"Next Random Question"} />
+              <RandomButton text={"Next Question"} />
             </div>
             <IoIosArrowForward
               className={`${currentIndex === questionHistory.length - 1 ? "invisible" : ""} md:hidden sm:flex ml-4 text-4xl cursor-pointer hover:text-cyan-500`}

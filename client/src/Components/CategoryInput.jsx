@@ -33,11 +33,11 @@ const CategoryInput = () => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       <input
         type="text"
         placeholder="Search Category..."
-        className="bg-white border border-gray-300 text-gray-700 text-sm placeholder-gray-400 rounded-md px-3 py-2
+        className="bg-white w-full md:w-1/2 border border-gray-300 text-gray-700 text-sm placeholder-gray-400 rounded-md px-3 py-2
                 transition duration-150 ease-in-out focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500
                 hover:border-gray-400 shadow-sm focus:shadow cursor-text w-1/2"
         value={search}
@@ -45,7 +45,7 @@ const CategoryInput = () => {
         onBlur={() => setSearch('')}
       />
 
-      <ul className="absolute bg-white rounded shadow mt-1 w-full max-h-60 overflow-y-auto">
+      <ul className="absolute m-auto top-8.5 left-0 right-0 bg-white rounded shadow mt-1 w-full md:w-1/2 max-h-60 overflow-y-auto">
         {categorySuggestions.map((cat) => (
           <li
             key={cat}
