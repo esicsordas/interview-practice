@@ -14,7 +14,7 @@ const CardList = ({questions, routeName}) => {
           </div>
         )) : (
           <div className="border border-gray-300 rounded-xl shadow-lg bg-white p-10 text-center text-lg col-span-2 mx-15 lg:col-start-2 lg:col-span-1 lg:mx-0" >
-            <p>There is no {routeName} cards selected. <br /> You can browse questions in the input field or with the Random question button. <br /> Enjoy the browsing! </p>
+            <p>No {routeName} selected yet. <br />Search for questions or try a random one to get started! 💥</p>
           </div>
         )}
     </div>
